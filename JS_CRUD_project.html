@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body onload="pageload();">
+    
+    <h1>Git/Github를 이용한 Javascript CRUD Project</h1>
+    <div>
+        <input type="text" id="read_data">
+        <input type="button" value="검색" onclick="read()">
+    </div>
+    
+    
+    <div>
+        <select id="dataList" style=width:200px multiple size=20></select>
+        <button type="button" onclick="delete_data()">삭제</button>
+    </div>
+            
+            
+    <div>
+        <input type="text" id="create_data">
+        <input type="button" value="생성" onclick="create()">
+    </div>
+            
+            
+    <div>
+        <input type="text" id="update_data">
+        <input type="button" value="수정" onclick="update()">
+    </div>
+    
+    <script type="text/javascript">
+    var sessionStorage = window.sessionStorage;                     //세션스토리지 호출
+    var dataList = document.getElementById("dataList");             //select태그 id를 변수에 할당
+    var create_data = document.getElementById("create_data");       //추가 기능 id를 변수에 할당
+    var select = document.getElementById("dataList");               //select태그의 options을 담을 객체
+    var update_data = document.getElementById("update_data");       //수정 기능 id를 변수에 할당
+    var read_data = document.getElementById("read_data");           //검색 기능 id를 변수에 할당
+        
+    function pageload() {   //select태그 새로고침
+        dataList.innerHTML = ""; //목록 비우기
+        for (var i = 0; i <= sessionStorage.length - 1; i++) {      //알고리즘 : 세션스토리지의 길이만큼 반복, 세션스토리지의 키를 i 값으로 인덱싱하여 key 
+            var key = sessionStorage.key(i);                            //변수에 초기화, dataList의 마지막 항목 다음 인덱스에 세션스토리지 키값, 밸류값 저장
+            dataList.options[dataList.options.length] = new Option(key, key);
+        }
+    }
+    function create() {     //추가 기능
+        sessionStorage.setItem(create_data.value, 0);               //세션스토리지에 {create_data값 : 0}의 쌍을 가지는 키 추가
+        pageload();
+    }
+    function delete_data() {        //삭제 기능
+        var option_value = select.options[select.selectedIndex].value;      //option_value에 select객체의 선택된 항목의 값을 초기화
+        sessionStorage.removeItem(option_value);                    // 세션스토리지에서 option_value를 키네임으로 가지는 키를 제거
+        pageload();         //select태그 새로고침
+    }
+    function update() {     //수정 기능
+        if (update_data.value != "") {                              //입력값이 ""(null)이지 않으면~
+            delete_data();      //삭제기능 실행
+            sessionStorage.setItem(update_data.value, 0);           //update_data의 값으로 키 생성
+            pageload();     //select태그 새로고침
+        }
+    }
+   
+    </script>
+</body>
+</html>
