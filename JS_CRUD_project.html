@@ -21,7 +21,11 @@
             
     <div>
         <input type="text" id="create_data">
+<<<<<<< HEAD
         <input type="button" value="생성" onclick="create()">
+=======
+        <input type="button" value="추가" onclick="create()">
+>>>>>>> feature/park
     </div>
             
             
@@ -40,14 +44,26 @@
         
     function pageload() {   //select태그 새로고침
         dataList.innerHTML = ""; //목록 비우기
+<<<<<<< HEAD
         for (var i = 0; i <= sessionStorage.length - 1; i++) {      //알고리즘 : 세션스토리지의 길이만큼 반복, 세션스토리지의 키를 i 값으로 인덱싱하여 key 
             var key = sessionStorage.key(i);                            //변수에 초기화, dataList의 마지막 항목 다음 인덱스에 세션스토리지 키값, 밸류값 저장
+=======
+        for (var i = 0; i <= sessionStorage.length - 1; i++) {      //알고리즘 : 세션스토리지의 길이만큼 반복, 세션스토리지의 키를 i 값으로 인덱싱하여 key 변수에 초기화, dataList의 마지막 항목 다음 인덱스에 세션스토리지 키값, 밸류값 저장
+            var key = sessionStorage.key(i);
+>>>>>>> feature/park
             dataList.options[dataList.options.length] = new Option(key, key);
         }
     }
     function create() {     //추가 기능
+<<<<<<< HEAD
         sessionStorage.setItem(create_data.value, 0);               //세션스토리지에 {create_data값 : 0}의 쌍을 가지는 키 추가
         pageload();
+=======
+        if (create_data.value != "") {                              //입력값이 ""(null)이지 않으면~
+            sessionStorage.setItem(create_data.value, 0);           //세션스토리지에 {create_data값 : 0}의 쌍을 가지는 키 추가
+            pageload();
+        }
+>>>>>>> feature/park
     }
     function delete_data() {        //삭제 기능
         var option_value = select.options[select.selectedIndex].value;      //option_value에 select객체의 선택된 항목의 값을 초기화
@@ -61,7 +77,22 @@
             pageload();     //select태그 새로고침
         }
     }
+<<<<<<< HEAD
    
+=======
+    function read() {       //검색 기능
+        var rowSel = dataList.options.length;                       //dataList의 길이를 변수에 할당.
+        for (var i = 0; i < rowSel; i++) {                          //dataList의 길이만큼 반복
+            dataList.options[i].selected = false;                   //모든 항목을 "선택되지않음" 처리
+        }
+        for (var i = 0; i < rowSel; i++) {                          //dataList의 길이만큼 반복
+            if (dataList.options[i].value == read_data.value){      //인덱싱값이 read_data와 같다면~
+                dataList.options[i].selected = true;                //해당 항목을 "선택됨" 처리
+                break;                                              //반복문 종료
+            }
+        }
+    }
+>>>>>>> feature/park
     </script>
 </body>
 </html>
